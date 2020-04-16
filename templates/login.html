@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Jobless</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" media="screen"
+        href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+
+<body style="background:#2e4369">
+    <main>
+        <center>
+            <div class="section"></div>
+            <div class="section"><div class="row valign-wrapper">
+                <div class="col m5">
+                    
+                </div>
+                <div class="col m2 left">
+                        <img  src="{{url_for('static', filename='images/tie.png')}}"  style="width: 4em; height: 4em;">
+                    <h5 style="color: white;">Jobless</h5>
+                  </div>
+                  <div class="col m5 left">
+                       
+                      </div>
+                </div></div>
+            <div class="container">
+                <div class="z-depth-3 grey lighten-4 row"
+                    style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+                    <h6 class="indigo-text center">Please, login into your account</h6>
+                    <form class="col s12" action="/login" method="post">
+                        <div class='row'>
+                            <div class='col s12'>
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                            <div class='input-field col s12'>
+                                <input class='validate' type='text' name='email' id='email' />
+                                <label for='un'>Email ID</label>
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                            <div class='input-field col s12'>
+                                <input class='validate' type='password' name='password' id='password' />
+                                <label for='password'>Password</label>
+                            </div>
+                            <label style='float: right;'>
+                                <a class='pink-text' href='#!'><b>Forgot Password?</b></a>
+                            </label>
+                        </div>
+
+                        <br />
+                        <center>
+                            <div class='row'>
+                                <button type='submit' name='btn_login'
+                                    class='col s12 btn btn-large waves-effect indigo'>Login</button>
+                            </div>
+                        </center>
+                    </form>
+                </div>
+            </div>
+            <a href="/register" style="color:lightgrey">Create account</a>
+        </center>
+
+        <div class="section"></div>
+        <div class="section"></div>
+    </main>
+    <!-- Script files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>

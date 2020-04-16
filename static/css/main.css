@@ -1,0 +1,261 @@
+thead {
+    background-color: white;
+    color: black;
+}
+
+body {
+    background:whitesmoke;
+}
+.sidenav {
+    background: #2e4369;
+}
+.nav-wrapper {
+    background: #2e4369;
+}
+.nav-bar {
+    margin-bottom:3em;
+}
+
+/* .image-msrit{
+    
+} */
+
+p {
+    text-align: justify;
+}
+
+.subheader1:hover {
+    color:#00b9ff;
+}
+
+.activePath {
+    border-left: 5px solid #00b9ff;
+}
+
+
+table {
+    margin-bottom: 4em;
+}
+
+#cpTable {
+    width: 100%;
+}
+
+#modal1-employee {
+    width: 61%;
+}
+
+hr{ 
+    height: 1px;
+    color: lightgray;
+    background-color: lightgray;
+    border: none;
+}
+
+.tabs .tab a{
+    color:#000;
+} /*Black color to the text*/
+
+.tabs .tab a:hover {
+    background-color:#eee;
+    color:#e91e63;
+} /*Text color on hover*/
+
+.tabs .tab a:focus.active {
+    background-color: whitesmoke;
+    color:#e91e63;
+} /*Background and text color when a tab is active*/
+
+.tabs .indicator {
+    background-color:#e91e63;
+} /*
+
+
+/* label focus color */
+.input-field input:focus + label {
+    color:black !important;
+  }
+  /* label underline focus color */
+.input-field input:focus {
+    border-bottom: 1px solid #e91e63 !important;
+    box-shadow: 0 1px 0 0 #e91e63 !important
+}
+
+
+.input-field textarea:focus + label {
+    color:black !important;
+  }
+  /* label underline focus color */
+.input-field textarea:focus {
+    border-bottom: 1px solid #e91e63 !important;
+    box-shadow: 0 1px 0 0 #e91e63 !important
+}
+
+.card .card-title{
+    font-size: 1.2em;
+}
+
+.tabs {
+    border-radius: 0.5em;
+}
+
+.collection {
+    border-radius: 0.5em;
+}
+
+/* .btn btn-small {
+    border-radius: 10em;
+    background: #2e4369;
+}
+
+.btn btn-small:hover {
+    border-radius: 10em;
+    background: #2e4369;
+}
+
+.btn btn-small:active  {
+    border-radius: 10em;
+    background: #2e4369;
+}
+
+.btn btn-small:focus  {
+    border-radius: 10em;
+    background: #2e4369;
+} */
+
+
+.datepicker-date-display {
+    background: #2e4369;
+}
+
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:before,
+[type="radio"].with-gap:checked + span:after {
+  border: 2px solid #e91e63;
+}
+ 
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:after {
+  background-color: #e91e63;
+}
+
+
+
+.contractTitleList {
+    color: black;
+}
+.chip {
+    background: teal;
+    z-index: 1;
+}
+
+.chip:hover{
+    opacity: 90%;
+}
+
+
+
+
+.uploadCard {
+    background: #2e4369;
+    color:white;
+}
+
+.loginGithub {
+    background: #00b9ff;
+    color:white;
+}
+
+.fundEnd {
+    background: #2e4369;
+    color:white;
+}
+
+.trading {
+    background: teal;
+    color:white;
+}
+
+
+.headingBalanceContract {
+    background: #2e4369;
+    color:white;
+}
+
+.modal{
+    width: 50%;
+}
+
+.loader {
+    width: 50%;
+    position: relative;
+}
+
+.loader-li {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    bottom: 7em;
+    left:7em;
+    position: fixed;
+}
+
+input:disabled{
+    color: grey !important; 
+}
+
+textarea:disabled{
+    color: grey !important; 
+}
+
+label{
+    color:rgb(80, 80, 80) !important;
+}
+
+
+.headingTypes {
+    background: #e91e63 !important;
+    color: white;
+}
+
+.sellCircle, .buyCircle{
+    border-radius: 100%; 
+    background: rgb(175, 212, 212); 
+    width: 12em; 
+    height: 12em;
+    text-align: center;
+    line-height: 20em;  
+    margin: 0 auto;
+}
+
+.sellCircle:hover, .buyCircle:hover {
+    background: #efefef;
+}
+
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    rgb(80, 80, 80);
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    rgb(80, 80, 80);
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    rgb(80, 80, 80);
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    rgb(80, 80, 80);
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    rgb(80, 80, 80);
+}
+
+::placeholder { /* Most modern browsers support this now. */
+   color:    rgb(80, 80, 80);
+}
+
+
+

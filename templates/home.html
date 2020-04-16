@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<!-- Header -->
+<div class="row valign-wrapper">
+  <div class="col m2">
+    <h5 class="headingHome left valign-wrapper" style="color:#2e4369"><i class="small material-icons left">event_note</i>All Jobs</h5>
+  </div>
+  <div class="col m10">
+    <nav>
+      <div class="nav-wrapper white card z-depth-1">
+        <form>
+          <div class="input-field">
+            <input id="search" type="search" placeholder="Full text search..." required>
+            <label class="label-icon" for="search"><a href = "javascript:;" onclick = "this.href='home?query=' + document.getElementById('search').value"><i class="material-icons black-text">search</i></a></label>
+            <i class="material-icons">close</i>
+          </div>
+        </form>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<!-- List of the Contract -->
+<ul class="collection circle">
+        {% for job in data %} 
+    <li class="collection-item card">
+        <div class="card-content">
+        <span class="card-title crdtitle"><b>{{job.position}}</b> &nbsp
+        <div class="chip right"><a style="color:white" href="/details?job_id={{ job.jobopening_id }}">View in detail</a></div>
+        <div class="chip white right">Applications:&nbsp51</div>
+        </span>
+        <p style="color:grey; display:inline-block"><i class="small material-icons left">event_note</i>Company:&nbsp&nbsp&nbsp</p><p style="color:black; display:inline-block">	
+          Gorgias
+            </p>
+        <br> <p style="color:grey; display:inline-block"> Place:&nbsp&nbsp&nbsp</p><p style="color:black; display:inline-block">{{ job.joblocation }}</p>
+        <br> <p style="color:grey; display:inline-block"> </p><p style="color:grey; display:inline-block"> {{ job.jobdetails }}</p>
+        </p>
+        </div>
+        <div class="card-action">
+            <a href="#">Posted 2 days ago</a>
+            <a href="#" class="right"><i class="small material-icons left">star_border</i></a>
+          </div>
+      </li>
+      {% endfor %}
+      
+</ul>
+
+
+<!-- Scripts -->
+<script type="text/javascript"  src="{{url_for('static', filename='js/main.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/home.js')}}"></script>
+{% endblock %}

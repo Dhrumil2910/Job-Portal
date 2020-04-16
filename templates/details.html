@@ -1,0 +1,99 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<!-- Header -->
+<!-- <div class="row valign-wrapper">
+  <div class="col m6">
+    <h5 class="headingTrading left valign-wrapper" style="color:#2e4369"><i
+        class="small material-icons left">business</i>Buildings</h5>
+  </div>
+  <div class="col m6">
+    <button class="btn btn-small waves-effect waves-light right goToHome" type="button"><a href="/" style="color:white">Dashboard</a>
+    </button>
+  </div>
+</div> -->
+
+
+
+    <div class="row">
+        <div class="col s12 m12">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title"><div class="row"><div class="col s8"><h4>Full-Stack Engineer</h4></div><div class="col s4"><div class="chip right"><a style="color:white" href="/details">Apply</a></div>
+                <div class="chip white right">Applications:&nbsp51</div></div></div>
+              
+                
+                Company: <a href="https://www.gorgias.com/">Gorgias</a><br>
+                Location: Paris France<br>
+                <div class="chip grey white-text">DBMS</div> <div class="chip grey white-text">Full Stack</div> <div class="chip grey white-text">Python</div>
+              </span>
+              <hr>
+              <p align="justify"><h5>Job description</h5><br>
+                  We created the company in Paris and are now a San Francisco based startup with a newly opened Paris office. We're making a SaaS helpdesk that automates a big part of the repetitive customer support tasks. We're close to 2000+ paying companies using our product and growing fast. We’re looking to expand our team and make our product even better!
+                  
+                  <br><br>If this spiked your interest here’s a bit more info about our stack and how we work at Gorgias: The backend code is mostly written in Python and runs using Flask (REST API) and Celery for all background work. The state is stored in PostgreSQL and RabbitMQ with Redis for ephemeral storage, and finally, everything runs on Kubernetes.
+                  
+                  <br><br>We have a strong preference for people who worked with high-traffic web applications for the past 3+ years. We're essentially running a distributed system that has lots of moving parts and having a decent amount of experience with this type of system helps a lot!
+                  
+                  <br><br>Additionally, our apps have over 5000 daily active users with sessions longer than 6h/day and tens of millions of end consumers per year. That is why we put great importance on quality, testing, and code-review of all our code. Our apps have big codebases, and we have to feel comfortable about navigating and progressively improving them. Sometimes, however, we gotta get dirty and figure out why the DB is slow or why some k8s pod is not running correctly, figure out how to successfully retry a failing API request, etc…
+                  
+                  <br><br>We have two openings available, one for both offices: Paris (France) and San Francisco (USA).
+                  
+                  <br><br>
+                  <b>What You’ll Do</b>
+                  <ul>
+                  <li>Making our React and React Native applications gorgeous and progressively improving them</li>
+                  <li>Scaling and maintaining our chat application that serves millions of concurrent users</li>
+                  <li>Fixing bugs, updating/refactoring the existing apps</li>
+                  <li>There's still lots of stuff to improve</li>
+                  <li>And more…</li>
+                </ul>
+                <br>
+                
+                  <b>About You</b>
+
+                  <ul>
+                  <li>3+ years of experience developing web applications</li>
+                  <li>3+ years of experience doing back-end development with Python</li>
+                  <li>3+ years of experience doing front-end development with JavaScript</li>
+                  <li>You are eager to solve unique e-commerce problems</li>
+                  <li>You are passionate about learning, and want to help us learn too</li>
+                  <li>You care about working on applications that are putting the customer needs first</li>
+                  <li>You are comfortable communicating with other technical teams and management to collect requirements, describe software product features, demo work in progress and provide project updates</li>
+                  <li>You have the drive and focus to get challenging projects over the finish line, and you are comfortable advocating for what you need to do your best work</li>
+                  <li>You thrive in a fast-paced environment</li>
+                  <li>Nice to Have</li>
+                  </ul>
+                  <br>
+                  <ul>
+                    <li>Experience in designing API/microservices is a huge plus</li>
+                    <li> Experience with large-scale e-commerce</li>
+                    <li>Experience with high-traffic web applications</li>
+                    <li>Experience with agile tools like GitHub</li>
+                    <li>Understanding of HTTP and Websockets</li>
+                    <li>Experience working directly with DOM, CSS</li>
+                    <li>Company Perks & Benefits</li>
+                  </ul>
+                  <br><br>
+                  Getting Stuff Done, Ownership, Team Work, Excellence, and Agility.
+                  <br><br>
+                  You should join us if you want to ship stuff fast without scarifying quality. We've put great importance on testing our code, cleaning it, treating errors first, and features later.
+                  <br><br>
+                  We also value growth and ownership. People make mistakes. We learn from them to avoid them in the future. We cannot achieve excellence if there are no bumps in the road.</p>
+            </div>
+            <div class="card-action">
+              <a href="#">This is a link</a>
+              <a href="#">This is a link</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+<script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/details.js')}}"></script>
+{% endblock %}

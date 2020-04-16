@@ -1,0 +1,11 @@
+All the endpoints and their response:
+====================================
+
+/api/v1/jobopenings?filter ==> provide all the job openings
+                    ==>
+
+/api/v1/jobapplications?filter ==> provide all the job applications
+
+/api/v1/profile?user=user_id ==> provide the profile of the user
+
+/api/v1/
