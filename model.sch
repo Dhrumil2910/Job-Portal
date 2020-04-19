@@ -87,3 +87,14 @@ class Experience(db.Model):
 	key_responsibility = db.Column(db.Text)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
 	user = db.relationship('User')
+	
+class Message(db.Model):
+	message_id = db.Column(db.Integer, primary_key=True)
+	sender_id = db.Column(db.Integer)
+	receiver_id = db.Column(db.Integer)
+	body = db.Column(db.Text)
+	time = db.Column(db.DateTime)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
+	user = db.relationship('User')
+
+	
