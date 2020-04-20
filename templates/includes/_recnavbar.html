@@ -1,0 +1,47 @@
+<ul id="nav-mobile" class="sidenav sidenav-fixed">
+    <li style="height: 15%; margin-top: 1em;"><a class="subheader1a" style="color:white;">
+      <div class="row valign-wrapper">
+      <div class="col m3">
+          <img src="{{url_for('static', filename='images/tie.png')}}"  style="width: 4em; height: 4em; float:center">
+      </div>
+      <div class="col m1">
+          <h5 style="float: left;">Jobless</h5>
+        </div>
+        <div class="col m8">
+            
+          </div>
+      </div>
+     
+      
+    </a>
+  </li>
+  
+    <li><a class="subheader"  style="color:white">
+      <!-- <div class="preloader-wrapper big active currentLoggedInLoader">
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div> -->
+    <h6 id="currentParticipant">Hello, {{current_user.name}}</h6></a></li>
+    <br>
+
+    <!-- All the Navigations links -->
+    <li class="subheader1 rechomePath" ><a class="subheader1a" href="/rechome" style="color: white;"> <i class="material-icons white-text text-darken-4">home</i>All Jobs</a></li>
+    <li class="subheader1 inactivejobsPath"><a class="subheader1a" href="/inactivejobs" style="color: white;"> <i class="material-icons white-text text-darken-4">library_books</i>Inactive Jobs</a></li>
+    <li class="subheader1 searchPath"><a class="subheader1a" href="/search" style="color: white;"> <i class="material-icons white-text text-darken-4">search</i>Search</a></li>
+    <li class="subheader1 profilePath"><a class="subheader1a" href="/profile" style="color: white;"><i class="material-icons white-text text-darken-4">person</i>Profile</a></li>
+    <li class="subheader1 logoutPath"><a class="subheader1a" href="/logout" style="color: white;"> <i class="material-icons white-text text-darken-2">keyboard_return</i>Logout</a></li>
+    <li class="subheader1 settingPath"><a class="subheader1a" href="/setting" style="color: white;"> <i class="material-icons white-text text-darken-2">settings</i>Settings</a></li>
+    <hr style="background: #676767;">
+  
+
+    
+</ul>
+
+    

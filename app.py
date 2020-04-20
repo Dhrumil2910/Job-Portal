@@ -1,12 +1,13 @@
-from flask import Flask, render_template, url_for, redirect, flash, request, jsonify
+from flask import Flask, render_template, url_for, redirect, flash, request, jsonify, send_file
 import requests
-from datetime import datetime
+from datetime import datetime, date
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_whooshee import Whooshee
+from io import BytesIO, StringIO
 
 app = Flask(__name__)
 
@@ -37,13 +38,15 @@ whooshee = Whooshee(app)
 
 # Database model creation started
 
-
+@whooshee.register_model('searchable_tags', 'email', 'name')
 class User(UserMixin, db.Model):
 	user_id = db.Column(db.Integer, primary_key=True)
 	email = db.Column(db.String(50), unique=True, nullable=False)
 	name = db.Column(db.String(50))
 	mobile = db.Column(db.String(50))
 	password = db.Column(db.String(50))
+	resume = db.Column(db.LargeBinary)
+	searchable_tags = db.Column(db.Text)
 
 	def get_id(self):
            return (self.user_id)
@@ -95,7 +98,10 @@ class JobSchema(ma.ModelSchema):
 class Application(db.Model):
 	apply_id = db.Column(db.Integer, primary_key=True)
 	applydate = db.Column(db.DateTime)
+	application_status = db.Column(db.String(50))
+	meeting_schedule = db.Column(db.String(50))
 	jobopening_id = db.Column(db.Integer, db.ForeignKey('job.jobopening_id'))
+	job = db.relationship('Job')
 	user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
 	user = db.relationship('User')
 
@@ -165,6 +171,8 @@ def login():
 				login_user(user)
 				if user.email == 'admin@gmail.com':
 					return redirect(url_for('admin.index'))
+				elif user.email == 'poojan@gmail.com':
+					return redirect(url_for('rechome'))
 				return redirect(url_for('home'))
 		return '<h1>Invalid Email Id or password</h1>'
 	return render_template('login.html')
@@ -174,7 +182,7 @@ def login():
 def register():
     if request.method == 'POST':
         new_user = User(email=request.form['email'], name=request.form['name'],
-                        mobile=request.form['mobile'], password=request.form['password'])
+                        mobile=request.form['mobile'], password=request.form['password'], resume=request.files['resume'].read(), searchable_tags=request.form['tags'])
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('login'))
@@ -192,16 +200,32 @@ def logout():
 @app.route('/search')
 def search():
 	result = Job.query.whooshee_search('Blockchain').all()
-	print result
 	return render_template('search.html', data=result)
+
+
+@app.route('/replytomessage')
+def replytomessage():
+	apply_id = request.args.get('appId')
+	#get the application
+	application = Application.query.filter_by(apply_id=apply_id).first()
+	application.meeting_schedule = application.meeting_schedule + "\nApplicant: Ok!"
+	db.session.commit()
+	return redirect(url_for('appliedjobs'))
 
 #return all the applied job based on the current logged in user
 @app.route('/appliedjobs')
 def appliedjobs():
     #Query the database
-    appliedjobs = Application.query.filter_by(user_id=current_user.user_id)
-
-    return render_template('appliedjobs.html')
+	jobPostings = []
+	appliedjobs = Application.query.filter_by(user_id=current_user.user_id).all()
+	application_schema = ApplicationSchema(many=True)
+	applications = application_schema.dump(appliedjobs).data
+	for application in appliedjobs:
+		JobPosting = Job.query.filter_by(jobopening_id=application.jobopening_id).first()
+		jobPostings.append(JobPosting)
+	job_schema = JobSchema(many=True)
+	data = job_schema.dump(jobPostings).data
+	return render_template('appliedjobs.html', data=data, applications=applications)
 
 # Home page function
 # return all the job postings
@@ -218,6 +242,117 @@ def home():
 	data = job_schema.dump(jobPostings).data
 	return render_template('home.html', data=data)
 
+@app.route('/rechome')
+@login_required
+def rechome():
+	#Query the database for all the jobs
+	query = request.args.get('query')
+	if query is None:
+		jobPostings = Job.query.all()
+	else:
+		jobPostings = Job.query.whooshee_search(query).all()
+	job_schema = JobSchema(many=True)
+	data = job_schema.dump(jobPostings).data
+	return render_template('rechome.html', data=data)
+
+@app.route('/recdeletejob')
+@login_required
+def recDeleteJob():
+	#get the job id to be deleted
+	deletejobid = request.args.get('deletejobid')
+	if deletejobid is not None:
+		#find the job with this Id
+		jobPosting = Job.query.filter_by(jobopening_id=deletejobid).delete()
+		db.session.commit()
+	#redirect it to the same page after delete
+	return redirect(url_for('rechome'))
+
+@app.route('/downloadresume')
+def downloadresume():
+	#get the user id from the requests
+	user_id = request.args.get('userId')
+	#Find the user in the db
+	UserResume = User.query.filter_by(name=user_id).first()
+	return send_file(BytesIO(UserResume.resume), attachment_filename='resume.pdf', as_attachment=True)
+
+# @app.route('/seeresume')
+# def seeresume():
+# 	#get the user id from the requests
+# 	user_id = request.args.get('userId')
+# 	#Find the user in the db
+# 	UserResume = User.query.filter_by(user_id=user_id).first()
+# 	sio = StringIO()
+# 	# f = open(send_file(BytesIO(UserResume.resume), attachment_filename='resume.pdf', as_attachment=True), "rb")
+# 	# imag = f.read()
+# 	# print(imag)
+# 	# f.close()
+# 	# sio.write(BytesIO(UserResume.resume))
+# 	# sio.seek(0)
+# 	return UserResume.resume
+
+
+@app.route('/recdetails')
+@login_required
+def recdetails():
+	#Query the job from the database from the job Id
+	job_id = request.args.get('job_id')
+	jobPosting = Job.query.filter_by(jobopening_id=job_id).first()
+	job_schema = JobSchema()
+	dataJob = job_schema.dump(jobPosting).data
+	#Query the Applicants who applied for this job
+	Applications = Application.query.filter_by(jobopening_id=job_id).all()
+	application_schema = ApplicationSchema(many=True)
+	dataApplications = application_schema.dump(Applications).data
+	data = {
+		'dataJob': dataJob,
+		'dataApplications': dataApplications
+	}
+	for i in range(len(data['dataApplications'])):
+		userId = data['dataApplications'][i]['user']
+		#get the user from the database
+		UserAp = User.query.filter_by(user_id=userId).first()
+		#just change the name in the list
+		data['dataApplications'][i]['user'] = {
+			'name': UserAp.name,
+			'searchable_tags': UserAp.searchable_tags
+		}
+	if request.args.get('query') is None:
+		return render_template('recdetails.html', data=data)
+	return render_template('recdetails.html', data=data, query=request.args.get('query'))
+
+@app.route('/acceptApp')
+def acceptApp():
+	#get the application id from the requests
+	application_id = request.args.get('appId')
+	#Find the application in the db
+	ApplicationAc = Application.query.filter_by(apply_id=application_id).first()
+	ApplicationAc.application_status = "Accepted"
+	db.session.commit()
+	return redirect(url_for('recdetails', job_id=ApplicationAc.jobopening_id))
+
+
+@app.route('/applyforjob')
+def applyforjob():
+	#get the job id
+	job= Job.query.filter_by(jobopening_id=request.args.get('jobid')).first()
+
+	#make the application
+	user = User.query.filter_by(user_id=current_user.user_id).first()
+	applydate = date.today()
+	newApplication = Application(applydate=applydate, user=user, job=job, application_status="Applied", meeting_schedule=None)
+	db.session.add(newApplication)
+	db.session.commit()
+	return redirect(url_for('appliedjobs'))
+
+@app.route('/schedule')
+def schedule():
+	#get the application id from the requests
+	application_id = request.args.get('appId')
+	#Find the application in the db
+	ApplicationAc = Application.query.filter_by(apply_id=application_id).first()
+	ApplicationAc.meeting_schedule = "The meeting is schedule after 10 days from now. Please be ready"
+	db.session.commit()
+	return redirect(url_for('recdetails', job_id=ApplicationAc.jobopening_id))
 
 @app.route('/details')
 def details():
@@ -226,6 +361,16 @@ def details():
 	job_schema = JobSchema()
 	data = job_schema.dump(jobPosting).data
 	return render_template('details.html', data=data)
+
+@app.route('/recommjobs')
+def recommjobs():
+	#query the database for jobs
+	currUser = User.query.filter_by(user_id=current_user.user_id).first()
+	searchable_tags = currUser.searchable_tags.replace(',', '')
+	jobPostings = Job.query.whooshee_search(searchable_tags).all()
+	job_schema = JobSchema(many=True)
+	data = job_schema.dump(jobPostings).data
+	return render_template('recommjobs.html', data=data)
 
 
 @app.route('/application')

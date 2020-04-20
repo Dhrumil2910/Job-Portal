@@ -36,7 +36,7 @@
                 <div class="z-depth-3 grey lighten-4 row"
                     style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
                     <h6 class="indigo-text">Please, register</h6>
-                    <form class="col s12" action="/register" method="post">
+                    <form class="col s12" action="/register" method="post" enctype="multipart/form-data">
                         <div class='row'>
                             <div class='col s12'>
                             </div>
@@ -75,6 +75,25 @@
                                         <label for='proof'>Previously worked at</label>
                                     </div>
                             </div>
+                            <div class="row">
+                                <div class="col s12">
+                                        <div class="file-field input-field">
+                                                <div class="btn">
+                                                  <span>File</span>
+                                                  <input type="file" name="resume">
+                                                </div>
+                                                <div class="file-path-wrapper">
+                                                  <input class="file-path validate" type="text">
+                                                </div>
+                                              </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class='input-field col s12'>
+                                        <input class='validate' type='text' name='tags' id='tags' />
+                                        <label for='tags'>Enter comma seperated tags</label>
+                                    </div>
+                                </div>
 
                         <br />
                         <center>

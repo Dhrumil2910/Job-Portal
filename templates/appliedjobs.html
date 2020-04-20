@@ -1,71 +1,79 @@
+#jinja2: newline_sequence:'\n'
 {% extends 'layout.html' %}
 
 {% block body %}
 
 <!-- Header -->
 <div class="row valign-wrapper">
-  <div class="col m6">
+  <div class="col m2">
     <h5 class="headingHome left valign-wrapper" style="color:#2e4369"><i class="small material-icons left">event_note</i>Applied Jobs</h5>
   </div>
-  <div class="col m6">
-  
+  <div class="col m8">
+    <nav>
+      <div class="nav-wrapper white card z-depth-1">
+        <form>
+          <div class="input-field">
+            <input id="search" type="search" placeholder="Full text search..." required>
+            <label class="label-icon" for="search"><a href = "javascript:;" onclick = "this.href='home?query=' + document.getElementById('search').value"><i class="material-icons black-text">search</i></a></label>
+            <i class="material-icons">close</i>
+          </div>
+        </form>
+      </div>
+    </nav>
   </div>
+  <div class="col m2">
+      <!-- Dropdown Structure -->
+<!-- <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">one</a></li>
+        <li><a href="#!">two</a></li>
+        <li class="divider"></li>
+        <li><a href="#!">three</a></li>
+      </ul>
+    <button type='submit' name='btn_login'
+        class='col s12 btn btn-small waves-effect dropdown-trigger' data-target="dropdown1">Filter</button> -->
+
+        <label>Filter</label>
+        <select class="browser-default z-depth-1">
+          <option value="" disabled selected>Choose</option>
+          <option value="1">Salary</option>
+          <option value="2">Company</option>
+          <option value="3">Job type</option>
+          <option value="4">Position</option>
+          <option value="5">Job Level</option>
+          <option value="6">Location</option>
+        </select>
+    </div>
 </div>
 
 <!-- List of the Contract -->
-<ul class="collection buildingsData circle">
+<ul class="collection circle">
+        {% for i in range(data|length) %} 
     <li class="collection-item card">
         <div class="card-content">
-        <span class="card-title crdtitle department"><b>Software Developer</b> &nbsp
-        <div class="chip right trading"><a style="color:white" href="/trading">See Status</a></div>
+        <span class="card-title crdtitle"><b>{{data[i].position}}</b> &nbsp
+        <div class="chip right"><a style="color:white" href="/details?job_id={{ data[i].jobopening_id }}">View in detail</a></div>
         <div class="chip white right">Applications:&nbsp51</div>
         </span>
         <p style="color:grey; display:inline-block"><i class="small material-icons left">event_note</i>Company:&nbsp&nbsp&nbsp</p><p style="color:black; display:inline-block">	
-            Shift Markets</p>
-        <br> <p style="color:grey; display:inline-block"> Place:&nbsp&nbsp&nbsp</p><p style="color:black; display:inline-block">New York, NY, USA</p>
-        <br> <p style="color:grey; display:inline-block"> Description:&nbsp&nbsp&nbsp</p><p style="color:grey; display:inline-block"> Shift Markets provides cryptocurrency exchange and brokerage trading technology, liquidity, digital asset listing and tokenization services to a global clientele. Founded in 2009 and...</p>
+          Bloomberg
+            </p>
+        <br> <p style="color:grey; display:inline-block"> Place:&nbsp&nbsp&nbsp</p><p style="color:black; display:inline-block">{{ data[i].joblocation }}</p>
+        <br> <p style="color:grey; display:inline-block"> </p><p style="color:grey; display:inline-block"> {{ data[i].jobdetails }}</p>
         </p>
         </div>
         <div class="card-action">
-            <a href="#">Posted 2 days ago</a>
-            <a href="#" class="right"><i class="small material-icons left">star_border</i></a>
+          <i>Messages</i>
+        <blockquote><i>{{  applications[i].meeting_schedule }}</i><div class="chip white right"><a href="replytomessage?appId={{applications[i].apply_id}}">Accept Meeting</a></div></blockquote>
+      
           </div>
-      </li>
-      <li class="collection-item card">
-          <div class="card-content">
-          <span class="card-title crdtitle department"><b>Senior Frontend Developer</b> &nbsp
-          <div class="chip right trading"><a style="color:white" href="/trading">See Status</a></div>
-          <div class="chip white right">Applications:&nbsp312</div>
-          </span>
-          <p style="color:grey; display:inline-block">Company:&nbsp&nbsp&nbsp</p><p style="color:black; display:inline-block">	
-              HGS Digital</p>
-          <br> <p style="color:grey; display:inline-block"> Place:&nbsp&nbsp&nbsp</p><p style="color:black; display:inline-block"> Chicago, IL</p>
-          <br> <p style="color:grey; display:inline-block"> Description:&nbsp&nbsp&nbsp</p><p style="color:grey; display:inline-block">HGSDigital seeks a blockchain developer to join a team implementing proof-of-concept projects using the Ethereum blockchain. The ideal...</p>
-          </p>
-          </div>
-          <div class="card-action">
-              <a href="#">Posted 3 days ago</a>
-              <a href="#" class="right"><i class="small material-icons left">star_border</i></a>
-            </div>
-        </li>
-        <li class="collection-item card">
-            <div class="card-content">
-            <span class="card-title crdtitle department"><b>Blockchain Developer</b> &nbsp
-            <div class="chip right trading"><a style="color:white" href="/trading">See Status</a></div>
-            <div class="chip white right">Applications:&nbsp30</div>
-            </span>
-            <p style="color:grey; display:inline-block">Company:&nbsp&nbsp&nbsp</p><p style="color:black; display:inline-block">	
-                brainbot technologies AG</p>
-            <br> <p style="color:grey; display:inline-block"> Place:&nbsp&nbsp&nbsp</p><p style="color:black; display:inline-block">New York, USA</p>
-            <br> <p style="color:grey; display:inline-block"> Description:&nbsp&nbsp&nbsp</p><p style="color:grey; display:inline-block"> Berlin Brainbot technologies AG is a fast-growing international software development company headquartered in Mainz, Germany. Our projects are based on new and challenging...</p>
-            </p>
-            </div>
-            <div class="card-action">
-                <a href="#">Posted 6 days ago</a>
-                <a href="#" class="right"><i class="small material-icons left">star_border</i></a>
+          {% if 'Accepted' in applications[i].application_status %}
+          <div class="card-action center green white-text">
+          {{ applications[i].application_status }}
               </div>
-          </li>
-          
+          {% endif %}
+      </li>
+      {% endfor %}
+      
 </ul>
 
 

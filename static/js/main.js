@@ -13,8 +13,12 @@ $(document).ready(function () {
         $('select').formSelect();
     })
 
-    
+    $('.chips').chips();
 
+    
+    $('#string_chips').click(function(){
+        $("#tags").val(JSON.stringify(M.Chips.getInstance($('#chips_tags')).chipsData)));
+   });
 
     path = location.pathname.replace("/", "")
     // check if the location is like contract/contractId

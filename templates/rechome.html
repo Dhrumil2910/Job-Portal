@@ -1,0 +1,78 @@
+{% extends 'reclayout.html' %}
+
+{% block body %}
+
+<!-- Header -->
+<div class="row valign-wrapper">
+  <div class="col m2">
+    <h5 class="headingHome left valign-wrapper" style="color:#2e4369"><i class="small material-icons left">event_note</i>All Jobs</h5>
+  </div>
+  <div class="col m8">
+    <nav>
+      <div class="nav-wrapper white card z-depth-1">
+        <form>
+          <div class="input-field">
+            <input id="search" type="search" placeholder="Full text search..." required>
+            <label class="label-icon" for="search"><a href = "javascript:;" onclick = "this.href='rechome?query=' + document.getElementById('search').value"><i class="material-icons black-text">search</i></a></label>
+            <i class="material-icons">close</i>
+          </div>
+        </form>
+      </div>
+    </nav>
+  </div>
+  <div class="col m2">
+      <!-- Dropdown Structure -->
+<!-- <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">one</a></li>
+        <li><a href="#!">two</a></li>
+        <li class="divider"></li>
+        <li><a href="#!">three</a></li>
+      </ul>
+    <button type='submit' name='btn_login'
+        class='col s12 btn btn-small waves-effect dropdown-trigger' data-target="dropdown1">Filter</button> -->
+
+        <label>Filter</label>
+        <select class="browser-default z-depth-1">
+          <option value="" disabled selected>Choose</option>
+          <option value="1">Salary</option>
+          <option value="2">Company</option>
+          <option value="3">Job type</option>
+          <option value="4">Position</option>
+          <option value="5">Job Level</option>
+          <option value="6">Location</option>
+        </select>
+    </div>
+</div>
+
+<!-- List of the Contract -->
+<ul class="collection circle">
+        {% for job in data %}
+        {% if job.status !=  "Inactive" %} 
+    <li class="collection-item card">
+        <div class="card-content">
+        <span class="card-title crdtitle"><b>{{job.position}}</b> &nbsp
+        <div class="chip right"><a style="color:white" href="/recdetails?job_id={{ job.jobopening_id }}">View in detail</a></div>
+        <div class="chip white right">Applications:&nbsp51</div>
+        </span>
+        <p style="color:grey; display:inline-block"><i class="small material-icons left">event_note</i>Company:&nbsp&nbsp&nbsp</p><p style="color:black; display:inline-block">	
+          Bloomberg
+            </p>
+        <br> <p style="color:grey; display:inline-block"> Place:&nbsp&nbsp&nbsp</p><p style="color:black; display:inline-block">{{ job.joblocation }}</p>
+        <br> <p style="color:grey; display:inline-block"> </p><p style="color:grey; display:inline-block"> {{ job.jobdetails }}</p>
+        </p>
+        </div>
+        <div class="card-action">
+            <a href="#">Posted today</a>
+            <a href="/recdeletejob?deletejobid={{ job.jobopening_id }}" class="right"><i class="small red-text material-icons left">delete</i></a>
+          </div>
+      </li>
+      {% endif %}
+      {% endfor %}
+      
+</ul>
+
+
+<!-- Scripts -->
+<script type="text/javascript"  src="{{url_for('static', filename='js/main.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/home.js')}}"></script>
+{% endblock %}

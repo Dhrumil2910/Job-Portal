@@ -7,7 +7,7 @@
   <div class="col m2">
     <h5 class="headingHome left valign-wrapper" style="color:#2e4369"><i class="small material-icons left">event_note</i>All Jobs</h5>
   </div>
-  <div class="col m10">
+  <div class="col m8">
     <nav>
       <div class="nav-wrapper white card z-depth-1">
         <form>
@@ -20,6 +20,28 @@
       </div>
     </nav>
   </div>
+  <div class="col m2">
+      <!-- Dropdown Structure -->
+<!-- <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">one</a></li>
+        <li><a href="#!">two</a></li>
+        <li class="divider"></li>
+        <li><a href="#!">three</a></li>
+      </ul>
+    <button type='submit' name='btn_login'
+        class='col s12 btn btn-small waves-effect dropdown-trigger' data-target="dropdown1">Filter</button> -->
+
+        <label>Filter</label>
+        <select class="browser-default z-depth-1">
+          <option value="" disabled selected>Choose</option>
+          <option value="1">Salary</option>
+          <option value="2">Company</option>
+          <option value="3">Job type</option>
+          <option value="4">Position</option>
+          <option value="5">Job Level</option>
+          <option value="6">Location</option>
+        </select>
+    </div>
 </div>
 
 <!-- List of the Contract -->
@@ -32,14 +54,14 @@
         <div class="chip white right">Applications:&nbsp51</div>
         </span>
         <p style="color:grey; display:inline-block"><i class="small material-icons left">event_note</i>Company:&nbsp&nbsp&nbsp</p><p style="color:black; display:inline-block">	
-          Gorgias
+          Bloomberg
             </p>
         <br> <p style="color:grey; display:inline-block"> Place:&nbsp&nbsp&nbsp</p><p style="color:black; display:inline-block">{{ job.joblocation }}</p>
         <br> <p style="color:grey; display:inline-block"> </p><p style="color:grey; display:inline-block"> {{ job.jobdetails }}</p>
         </p>
         </div>
         <div class="card-action">
-            <a href="#">Posted 2 days ago</a>
+            <a href="#">Posted Today</a>
             <a href="#" class="right"><i class="small material-icons left">star_border</i></a>
           </div>
       </li>
